@@ -3,5 +3,6 @@
 
     <string name="app_name">Tiendas</string>
     <string name="description_img_photo">Imagen de la tienda</string>
+    <string name="description_strore_add">Botón para añadir una tienda nueva</string>
 
 </resources>
