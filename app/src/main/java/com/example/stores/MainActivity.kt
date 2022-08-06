@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(mBinding.root)
 
         mBinding.btnSave.setOnClickListener{
-            val store = Store(name = mBinding.etNametore.text.toString().trim())
+            val store = Store(name = mBinding.etNamestore.text.toString().trim())
             mAdapter.add(store)
         }
         setupRecyclerView()
