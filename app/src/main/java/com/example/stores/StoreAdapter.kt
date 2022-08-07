@@ -50,16 +50,33 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>,
         }
     }
 
+    fun delete(storeEntity: StoreEntity) {
+        val index = stores.indexOf(storeEntity)
+        if(index != -1){
+            stores.removeAt(index)
+            notifyItemRemoved(index)
+        }
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
        val binding = ItemStoreBinding.bind(view)
 
         fun setOnClickListener(storeEntity: StoreEntity){
-            binding.root.setOnClickListener { listener.onClick(storeEntity) }
+
+            with(binding.root){
+                setOnClickListener { listener.onClick(storeEntity) }
+                setOnLongClickListener{ listener.onDeleteStore(storeEntity)
+                    true}
+            }
+
+
             binding.cbFavorite.setOnClickListener{
                 listener.onFavoriteStore(storeEntity)
             }
         }
     }
+
+
 
 
 }
