@@ -22,13 +22,16 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         setContentView(mBinding.root)
 
         mBinding.btnSave.setOnClickListener{
+            val storesSize = StoreApplication.database.storeDao()
             val store = StoreEntity(name = mBinding.etNamestore.text.toString().trim())
 
-            Thread{
+            doAsync {
                 StoreApplication.database.storeDao().addStore(store)
-            }.start()
-
-            mAdapter.add(store)
+                uiThread {
+                    mAdapter.add(store)
+                    println(store)
+                }
+            }
         }
         setupRecyclerView()
     }
@@ -58,7 +61,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     // OnClickListener
     override fun onClick(storeEntity: StoreEntity) {
-
+        println(storeEntity)
     }
 
     override fun onFavoriteStore(storeEntity: StoreEntity) {
