@@ -2,6 +2,7 @@ package com.example.stores
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.stores.databinding.ActivityMainBinding
 import org.jetbrains.anko.doAsync
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
 
-        mBinding.btnSave.setOnClickListener{
+        /* mBinding.btnSave.setOnClickListener{
             val storesSize = StoreApplication.database.storeDao()
             val store = StoreEntity(name = mBinding.etNamestore.text.toString().trim())
 
@@ -32,8 +33,29 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                     println(store)
                 }
             }
+
+
+        }*/
+
+        mBinding.enterfab.setOnClickListener{
+            launchEditFragment()
         }
+
         setupRecyclerView()
+    }
+
+    private fun launchEditFragment() {
+        val fragment = EditStoreFragment()
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.add(R.id.ContainerMain, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+
+        mBinding.enterfab.hide()
+
     }
 
     private fun setupRecyclerView() {
